@@ -12,8 +12,8 @@ name: {
     required: true
 },
 rating: {
-    type: Number,
-    required: true
+    type: Number
+   
 },
 directors: {
     type: [String],
@@ -23,9 +23,9 @@ release: {
     type: Date,
     require: true
 },
-snippet: {
-    type: String,
-    required: true   
+description: {
+    type: String
+     
 }
 });
 

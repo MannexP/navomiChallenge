@@ -12,7 +12,7 @@ router.post(
     [
       auth,
       [
-        check("name", "Name is Required")
+        check("name", "Movie is Required")
           .not()
           .isEmpty()
       ]
