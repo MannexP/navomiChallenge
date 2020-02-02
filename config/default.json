@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://Mannex:Oowapgang4life@navomi-0knv6.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://Mannex:Oowapgang4life@navomi-0knv6.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret":"secretToken"
 }
