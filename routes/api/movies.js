@@ -45,4 +45,63 @@ router.post(
     }
   );
 
+router.get('/', auth, async (req, res) =>{
+  try {
+    const movies = await Movie.find().sort({ date: -1 });
+    res.json(movies);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+router.get('/:id', auth, async (req, res) =>{
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if(!movie){
+      return res.status(404).json({ msg: 'Movie not found'})
+    }
+    res.json(movie);
+  } catch (err) {
+    console.error(err.message);
+    if(err.kind === 'ObjectId'){
+      return res.status(404).json({ msg: 'Movie not found'})
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
+router.delete('/:id', auth, async (req, res) =>{
+  try {
+    const movie = await Movie.findById(req.params.id);
+
+    if(!movie){
+      return res.status(404).json({ msg: 'Movie not found'})
+    }
+
+    // Check User
+    if(movie.user.toString() !== req.user.id) {
+      return res.status(401).json ({ msg: 'User not authorized'})
+    }
+
+    await movie.remove();
+
+    res.json({ msg: 'Movie deleted'});
+  } catch (err) {
+    console.error(err.message);
+    if(err.kind === 'ObjectId'){
+      return res.status(404).json({ msg: 'Movie not found'})
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
+
+
+
+
+
+
+
 module.exports = router;
